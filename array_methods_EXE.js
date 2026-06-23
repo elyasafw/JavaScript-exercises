@@ -31,3 +31,14 @@ console.log(updatePrices)
 // 10
 const arrayDuplicate = numsArr.reduce((acc, current) => acc * current, 1)
 console.log(arrayDuplicate)
+
+
+// 12
+const ages = [17, 20, 51, 32, 28, 70, 12, 10]
+const ageAvg = ages.reduce((acc, current) => acc + current / ages.length, 0)
+console.log(ageAvg)
+
+
+// 14
+const bigThen50 = ages.find(age => age > 50)
+console.log(bigThen50)
