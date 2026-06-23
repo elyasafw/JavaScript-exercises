@@ -50,3 +50,11 @@ console.log(prices.some(price => price < 0))
 
 // 18
 console.log(ages.every(age => age > 18))
+
+
+// 20
+console.log(prices.indexOf(80))
+
+
+// 21
+console.log(prices.includes(35))
