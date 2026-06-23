@@ -20,3 +20,14 @@ console.log(evensNums)
 const users = [{ name: "Avi", age: 17 }, { name: "Dana", age: 22 }]
 const adultUsers = users.filter(user => user.age > 18)
 console.log(adultUsers)
+
+
+// 8
+const prices = [100, 50, 80, 450, 230, 70, 120]
+const updatePrices = prices.filter(price => price >= 100).map(price => price * 1.18)
+console.log(updatePrices)
+
+
+// 10
+const arrayDuplicate = numsArr.reduce((acc, current) => acc * current, 1)
+console.log(arrayDuplicate)
