@@ -42,3 +42,11 @@ console.log(ageAvg)
 // 14
 const bigThen50 = ages.find(age => age > 50)
 console.log(bigThen50)
+
+
+// 16
+console.log(prices.some(price => price < 0))
+
+
+// 18
+console.log(ages.every(age => age > 18))
