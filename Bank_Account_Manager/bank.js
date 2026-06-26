@@ -2,20 +2,20 @@ import { validateName, validateAmount, validateTypeAccount } from "./utils.js";
 
 const Customers = [];
 
-function createCustomer() {
+export function createCustomer() {
     let id = 0;
     function incrementID() {
         return ++id;
     }
     function newAccount(name, balance, type) {
         if (!validateName(name)) {
-            console.log("invalid name...");
+            console.log("-- invalid name --");
             return;
         } else if (!validateAmount(balance)) {
-            console.log("invalid balance...");
+            console.log("-- invalid balance --");
             return;
         } else if (!validateTypeAccount(type)) {
-            console.log("invalid type account");
+            console.log("-- invalid type account --");
             return;
         }
         const currentId = incrementID();
@@ -26,70 +26,81 @@ function createCustomer() {
             type,
             status: true,
         });
-        console.log("customer created successfully");
+        console.log(`\ncustomer ID: ${id} created successfully`);
     }
     return newAccount;
 }
 
-function showCustomers() {
+export function showCustomers() {
+    if (Customers.length === 0) {
+        console.log("-- customers list is empty --")
+        return
+    }
+    console.log("\n=== Customers List ===\n")
     for (let customer of Customers) {
         console.log(customer);
     }
 }
 
-function deposit(id, amount) {
+export function deposit(id, amount) {
     const customer = searchCustomer(id);
-    if (!customer) {
-        console.log("customer not found...");
-    } else if (!customer.status) {
-        console.log("customer not active");
+    if (!customer) return;
+    if (!customer.status) {
+        console.log(`-- customer ID: ${id} not active --`);
+        return
     } else if (!validateAmount(amount)) {
-        console.log("invalid amount...");
+        console.log("-- invalid amount --");
+        return
     } else {
         customer.balance += amount;
-        console.log("deposit compact successfully");
+        console.log("\ndeposit complete successfully");
+        console.log(`balance: ${customer.balance}`);
     }
 }
 
-function withdraw(id, amount) {
+export function withdraw(id, amount) {
     const customer = searchCustomer(id);
-    if (!customer) {
-        console.log("customer not found...");
-    } else if (!customer.status) {
-        console.log("customer not active");
+    if (!customer) return;
+    if (!customer.status) {
+        console.log(`-- customer ID: ${id} not active --`);
+        return
     } else if (!validateAmount(amount)) {
-        console.log("invalid amount...");
+        console.log("-- invalid amount --");
+        return
     } else if (!customer.balance >= amount) {
-        console.log("balance is not enough");
+        console.log("-- balance is not enough --");
+        return
     } else {
         customer.balance -= amount;
-        console.log("withdraw compact successfully");
+        console.log("\nwithdraw complete successfully");
+        console.log(`balance: ${customer.balance}`);
     }
 }
 
-function searchCustomer(id) {
+export function searchCustomer(id) {
     const customer = Customers.find((c) => c.id === id);
-    return customer;
+    if (customer) {
+    return customer
+    };
+    console.log(`-- customer ID: ${id} not found --`);
+    return
 }
 
-function closeAccount(id) {
+export function closeAccount(id) {
     const customer = searchCustomer(id);
-    if (!customer) {
-        console.log("customer not found...");
-    } else {
-        customer.status = false;
-        console.log("account closed successfully");
-    }
+    if (!customer) return;
+    customer.status = false;
+    console.log(`\naccount ID: ${id} closed successfully`);
 }
 
-function showStatistics() {
-    let balancesList = Customers.map((c) => c.balance);
+export function showStatistics() {
+    let balancesList = Customers.filter((c) => c.status).map((c) => c.balance);
     let totalCustomers = balancesList.length;
-    let totalActivates = Customers.filter((c) => c.status).length;
+    let totalActivates = balancesList.length;
     let totalMoney = balancesList.reduce((acc, current) => acc + current, 0);
-    let avgBalances = totalMoney / totalCustomers;
-    let highBalance = Math.max(...balancesList);
-    console.log("=====Statistics=====");
+    let avgBalances = totalMoney / totalCustomers || 0;
+    let highBalance = Math.max(...balancesList) || 0;
+    console.log("\n=== Statistics ===");
     console.log(
         `Total Customers: ${totalCustomers}
 Active Accounts: ${totalActivates}
