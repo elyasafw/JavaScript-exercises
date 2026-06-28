@@ -33,10 +33,10 @@ export function createCustomer() {
 
 export function showCustomers() {
     if (Customers.length === 0) {
-        console.log("-- customers list is empty --")
-        return
+        console.log("-- customers list is empty --");
+        return;
     }
-    console.log("\n=== Customers List ===\n")
+    console.log("\n=== Customers List ===\n");
     for (let customer of Customers) {
         console.log(customer);
     }
@@ -47,10 +47,10 @@ export function deposit(id, amount) {
     if (!customer) return;
     if (!customer.status) {
         console.log(`-- customer ID: ${id} not active --`);
-        return
+        return;
     } else if (!validateAmount(amount)) {
         console.log("-- invalid amount --");
-        return
+        return;
     } else {
         customer.balance += amount;
         console.log("\ndeposit complete successfully");
@@ -63,13 +63,13 @@ export function withdraw(id, amount) {
     if (!customer) return;
     if (!customer.status) {
         console.log(`-- customer ID: ${id} not active --`);
-        return
+        return;
     } else if (!validateAmount(amount)) {
         console.log("-- invalid amount --");
-        return
+        return;
     } else if (!customer.balance >= amount) {
         console.log("-- balance is not enough --");
-        return
+        return;
     } else {
         customer.balance -= amount;
         console.log("\nwithdraw complete successfully");
@@ -80,10 +80,10 @@ export function withdraw(id, amount) {
 export function searchCustomer(id) {
     const customer = Customers.find((c) => c.id === id);
     if (customer) {
-    return customer
-    };
+        return customer;
+    }
     console.log(`-- customer ID: ${id} not found --`);
-    return
+    return;
 }
 
 export function closeAccount(id) {
